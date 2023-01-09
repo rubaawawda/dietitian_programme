@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import Form from './components/form/form.components';
 import './App.css';
-
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import ManageFoodTable from './pages/manage-food-table/manage-food-table.pages';
+import NewDietProgram from './pages/new-diet-program/new-diet-program.pages';
+import ViewExistingPrograms from './pages/view-existing-programs/view-existing-programs.pages';
+import Header from './components/header/header.components';
+import Home from './pages/home/home.pages';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Header/>
+    <Routes>
+    <Route path="/ManageFoodTable" element={<ManageFoodTable/>}/>
+    <Route path="/NewDietProgram" element={<NewDietProgram/>}/>
+    <Route path="/ViewExistingPrograms" element={<ViewExistingPrograms/>}/>
+    <Route path="/Form" element={<Form/>}/>
+    <Route path="/Home" element={<Home/>}/>
+    
+    </Routes>
+    </BrowserRouter>
   );
 }
 
