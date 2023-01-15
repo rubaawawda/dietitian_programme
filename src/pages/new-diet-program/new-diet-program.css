@@ -1,0 +1,65 @@
+.patient-information{
+    position: relative;
+    padding: 36px;
+    /* width: 100%; */
+    max-width: 230px;
+    background-color: #eaf5c5;
+    border-radius: .5;
+    border-radius: 30px;
+    margin-left: 137px;
+    margin-top: 12px;
+    float: left;
+    /* border: 1px solid red; */
+    height: 420px;
+
+}
+
+.box {
+    display: flex; 
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    height: 250px;
+    align-content: space-between;
+    margin-right: 300px;
+    margin-top: 34px;
+  }
+
+  .weekly-programme{
+    position: relative;
+    padding: 32px;
+    /* width: 100%; */
+    max-width: 640px;
+    background-color: #eaf5c5;
+    border-radius: .5;
+    border-radius: 30px;
+    margin-left: 137px;
+    margin-top: 33px;
+    height: 425px;
+    /* border: 1px solid green; */
+    overflow: hidden;
+    margin-top: 40;
+    margin-left: 530px;
+    
+
+  }
+
+  .save-btn{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 16px;
+    margin-left: 160px;
+    font-size: 20px;
+    color: #ffffff;
+    border: 1px solid #d5e0ae;
+    background-color: #98b33b;
+    font-family: cursive;
+  }
+
+  .container{
+    width: 100%;
+    border: 1px solid black;
+    overflow: hidden;
+  }
+

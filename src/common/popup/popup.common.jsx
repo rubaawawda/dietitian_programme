@@ -2,20 +2,20 @@ import React from "react";
 import './popup.css'
 import Input from "../input/input.common";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark} from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 //import { faPlus} from '@fortawesome/free-solid-svg-icons';
 //import { useState } from "react";
 import { nanoid } from "nanoid";
 import { useState } from "react";
-const Popup = (props) =>{
-  //  const [name, setName] = useState('Rice');
+const Popup = (props) => {
+
   const [addFormlist, setAddFormlist] = useState(null);
 
-  const handleAddFormSubmit = (event) => {
-    const {list, setList} = props
+  const handleAddSubmit = (event) => {
+    const { list, setList } = props
     event.preventDefault();
 
-    const newContact = {
+    const Menu = {
       id: nanoid(),
       name: addFormlist.name,
       image: addFormlist.image,
@@ -23,17 +23,22 @@ const Popup = (props) =>{
       calories: addFormlist.calories,
     };
 
-    const newContacts = [...list, newContact];
-    setList(newContacts);
+    const menuItems = [...list, Menu];
+    setList(menuItems);
+
+    /*const itemsJson = localStorage.getItem('listItem') || '[]';
+    const items = JSON.parse(itemsJson);
+    items.push(Menu)
+    localStorage.setItem('listItem', JSON.stringify(items))*/
   };
 
-  const handleAddFormChange = (event) => {
-   
+  const handleAddChange = (event) => {
+
     event.preventDefault();
 
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
-  
+
     const newFormlist = { ...addFormlist };
     newFormlist[fieldName] = fieldValue;
 
@@ -41,53 +46,53 @@ const Popup = (props) =>{
   };
 
 
-      
-    
-    return(props.trigger)?(
 
-        <div className="popup">
-            <form className="inner-popup" onSubmit={handleAddFormSubmit}>
-            <FontAwesomeIcon className="close-btn" onClick={()=>props.setTrigger(false)} icon={faXmark}/>
-                {props.children}
-                <h3>Add food meal</h3>
-                <div className="box">
-                <Input
-                 type="text"
-                 name="name"
-                 required="required"
-                 placeholder="Food name"
-                 onChange={handleAddFormChange}
-               
-              />
-             <Input
-                type="text"
-                name="image"
-                required="required"
-                placeholder="Food image source"
-                onChange={handleAddFormChange}
-              />
-              <Input
-                 type="number"
-                 name="amount"
-                 required="required"
-                 placeholder="Amount"
-                 onChange={handleAddFormChange}
-               
-              />
-              <Input
-                    type="calories"
-                    name="calories"
-                    required="required"
-                    placeholder="Calories"
-                    onChange={handleAddFormChange}
-                
-              />
-             </div>
-                <button className="nemo-button" type="submit">Create</button>
-                
-            </form>
+
+  return (props.trigger) ? (
+
+    <div className="popup">
+      <form className="inner-popup" onSubmit={handleAddSubmit}>
+        <FontAwesomeIcon className="close-btn" onClick={() => props.setTrigger(false)} icon={faXmark} />
+        {props.children}
+        <h3>Add food meal</h3>
+        <div className="box">
+          <Input
+            type="text"
+            name="name"
+            required="required"
+            placeholder="Food name"
+            onChange={handleAddChange}
+
+          />
+          <Input
+            type="text"
+            name="image"
+            required="required"
+            placeholder="Food image source"
+            onChange={handleAddChange}
+          />
+          <Input
+            type="number"
+            name="amount"
+            required="required"
+            placeholder="Amount"
+            onChange={handleAddChange}
+
+          />
+          <Input
+            type="calories"
+            name="calories"
+            required="required"
+            placeholder="Calories"
+            onChange={handleAddChange}
+
+          />
         </div>
-    ): " "
+        <button className="create-button" type="submit">Create</button>
+
+      </form>
+    </div>
+  ) : " "
 }
 
 export default Popup

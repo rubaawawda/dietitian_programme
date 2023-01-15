@@ -52,7 +52,7 @@ h3{
     height: 220px;
   }
 
-  .nemo-button{
+  .create-button{
     display: flex;
     justify-content: flex-end;
     margin-top: 30px;
@@ -61,5 +61,6 @@ h3{
     color: #ffffff;
     border: 1px solid #d5e0ae;
     background-color: #98b33b;
+    font-family: cursive;
 
   }

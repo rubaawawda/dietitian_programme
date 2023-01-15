@@ -1,0 +1,46 @@
+.TabView {
+    width: 100%;
+    margin-top: -6px;
+  }
+  
+  .TabView .title {
+    font-weight: bold;
+    padding: 0.5em;
+  }
+  
+  .TabView .body {
+    padding: 1em;
+  }
+  
+  .TabView .tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 624px;
+    margin-left: -6px;
+  }
+  
+  .TabView .tabs .tab {
+    padding: 5px 1em;
+    border: 1px solid gray;
+  }
+  
+  .TabView .tabs .active-tab {
+    padding: 5px 1em;
+    border-left: 1px solid #61741f;
+    border-top: 1px solid #61741f;
+    border-right: 1px solid #61741f;
+    background-color: #98b33b;
+  }
+  
+  .TabView .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background-color: #98b33b;
+    width: 624px;
+    height: 240px;
+    margin-left: -22px;
+}

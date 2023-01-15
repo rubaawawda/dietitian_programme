@@ -1,4 +1,5 @@
 import React from "react";
+import "./edit-row.css";
 
  
   
@@ -9,9 +10,9 @@ const EditRow = (props) => {
 
     const {editItemValue, setEditItemValue}=props
       
-      const handleEditFormChange = (e) => {
+      const handleEditChange = (e) => {
         
-        e.preDefault();
+       // e.preDefault();
     
         const fieldName = e.target.getAttribute("name");
         const fieldValue = e.target.value;
@@ -23,7 +24,7 @@ const EditRow = (props) => {
       };
 
   return (
-    <tr>
+    <tr key={`key+${props.index}`}>
       <td>
         <input
           type="text"
@@ -31,7 +32,7 @@ const EditRow = (props) => {
           placeholder="Food name"
           name="name"
           value={editItemValue.name}
-          onChange={handleEditFormChange}
+          onChange={handleEditChange}
         ></input>
       </td>
       <td>
@@ -41,7 +42,7 @@ const EditRow = (props) => {
           placeholder="Food image source"
           name="image"
           value={editItemValue.image}
-          onChange={handleEditFormChange}
+          onChange={handleEditChange}
         ></input>
       </td>
       <td>
@@ -51,7 +52,7 @@ const EditRow = (props) => {
           placeholder="Amount"
           name="amount"
           value={editItemValue.amount}
-          onChange={handleEditFormChange}
+          onChange={handleEditChange}
         ></input>
       </td>
       <td>
@@ -61,12 +62,12 @@ const EditRow = (props) => {
           placeholder="Calories"
           name="calories"
           value={editItemValue.calories}
-          onChange={handleEditFormChange}
+          onChange={handleEditChange}
         ></input>
       </td>
       <td>
-        <button type="submit">Save</button>
-        <button type="button" onClick={props.handleCancelClick}>
+        <button type="submit" className="save">Save</button>
+        <button type="button" className="cancle" onClick={props.handleCancelClick}>
           Cancel
         </button>
       </td>
