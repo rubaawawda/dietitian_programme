@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import './manage-food-table.css';
 import Popup from "../../common/popup/popup.common";
-import data from "./data.json"
+//import data from "./data.json"
 import EditRow from "../../common/row/edit-row.common";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
@@ -13,18 +13,19 @@ import { useEffect } from "react";
 
 const ManageFoodTable = () => {
 
-  const [list, setList] = useState(data);
+  const [list, setList] = useState([]);
   const [addBtn, setAddBtn] = useState(false)
   const [editID, setEdiId] = useState(null);
   const [editItemValue, setEditItemValue] = useState(null);
 
-  useEffect(() => {
-    localStorage.setItem('listItem', JSON.stringify(list));
-  }, [list]);
+ useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('listItem')|| '[]') ;
+    setList(items)
+  }, []);
 
   const handleEditClick = (e, item) => {
 
-    //e.preDefault();
+    e.preventDefault();
     setEdiId(item.id);
 
     const listItem = {
@@ -42,7 +43,7 @@ const ManageFoodTable = () => {
   };
 
   const handleEditSubmit = (e) => {
-   e.preDefault();
+   e.preventDefault();
 
     const editeditem = {
       id: editID,
@@ -59,6 +60,7 @@ const ManageFoodTable = () => {
     newitems[index] = editeditem;
 
     setList(newitems);
+    localStorage.setItem("listItem", JSON.stringify(newitems));
     setEdiId(null);
   };
 
@@ -71,6 +73,8 @@ const ManageFoodTable = () => {
     newitems.splice(index, 1);
 
     setList(newitems);
+
+    localStorage.setItem("listItem", JSON.stringify(newitems));
   };
 
 

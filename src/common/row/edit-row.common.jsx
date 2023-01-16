@@ -12,7 +12,7 @@ const EditRow = (props) => {
       
       const handleEditChange = (e) => {
         
-       // e.preDefault();
+        e.preventDefault();
     
         const fieldName = e.target.getAttribute("name");
         const fieldValue = e.target.value;

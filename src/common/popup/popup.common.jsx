@@ -25,11 +25,8 @@ const Popup = (props) => {
 
     const menuItems = [...list, Menu];
     setList(menuItems);
-
-    /*const itemsJson = localStorage.getItem('listItem') || '[]';
-    const items = JSON.parse(itemsJson);
-    items.push(Menu)
-    localStorage.setItem('listItem', JSON.stringify(items))*/
+     
+    localStorage.setItem("listItem", JSON.stringify(menuItems));
   };
 
   const handleAddChange = (event) => {
