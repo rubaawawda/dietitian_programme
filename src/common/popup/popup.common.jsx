@@ -22,11 +22,12 @@ const Popup = (props) => {
       amount: addFormlist.amount,
       calories: addFormlist.calories,
     };
-
+    
     const menuItems = [...list, Menu];
     setList(menuItems);
-     
     localStorage.setItem("listItem", JSON.stringify(menuItems));
+    addFormlist.name='';
+    
   };
 
   const handleAddChange = (event) => {
