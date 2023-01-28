@@ -26,7 +26,7 @@ const Popup = (props) => {
     const menuItems = [...list, Menu];
     setList(menuItems);
     localStorage.setItem("listItem", JSON.stringify(menuItems));
-    addFormlist.name='';
+    
     
   };
 

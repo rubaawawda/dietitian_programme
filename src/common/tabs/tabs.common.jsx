@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./tabs.css";
 
-function Tabs({ tabs = [], editable = false }) {
+function Tabs({ tabs = [], editable = false,props }) {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const [allTabs, setAllTabs] = useState(tabs);
 
@@ -27,7 +27,7 @@ function Tabs({ tabs = [], editable = false }) {
 
     const activateTab = (tab,index) => {
         setActiveTabIndex(index);
-        {console.log(tab.name)}
+        
     };
 
     return (

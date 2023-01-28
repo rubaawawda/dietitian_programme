@@ -16,7 +16,7 @@ const Input = props => {
         label ? (
           <label>
             <span>{label}</span>
-            
+
             {inputProps.required && <span>*</span>}
           </label>
         ) : null

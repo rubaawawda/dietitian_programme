@@ -1,0 +1,31 @@
+.tab-content{
+    min-height: 100px;
+    border: 1px solid #DCDCDC;
+    border-top: none;
+}
+.w-100 {
+    width: 100%!important;
+}
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+}
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+}
+.custom-tab .tab-content {
+    min-height: 100px;
+    border: 1px solid #dcdcdc;
+    border-top: none;
+}
+
+.nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
