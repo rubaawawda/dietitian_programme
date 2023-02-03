@@ -7,53 +7,60 @@ import { useState } from 'react';
 import Input from '../../common/input/input.common';
 //import Select from reactSelect
 //import Select from "react-select";
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 //import Card from './card';
 
 
 
 const MealPopup = (props) => {
+  const {patientList,setPatientList, currentTab} = props
+  
+  
   const items = JSON.parse(localStorage.getItem('listItem'));
-  const [selectedList, setSelectedList] = useState([])
   const [amountValue, setAmountValue] = useState('');
   const [selected, setSelected] = useState('');
   const value = selected && items[selected];
+  const [programList, setProgramList] = useState({...patientList.program});
+console.log(programList)
 
-  useEffect(() => {
-    const selectedItems = JSON.parse(localStorage.getItem('selectedItem') || '[]');
-    setSelectedList(selectedItems)
-  }, []);
+
+
+ 
 
   const handleCreateSubmit = (event) => {
 
     event.preventDefault();
 
     const Item = {
-    
+  
         name: value.name,
         image: value.image,
         amount: amountValue,
         calories: value.calories / value.amount * amountValue
 
     };
+    
+    programList[currentTab] = {...programList[currentTab], Item}
+    setProgramList (...programList)
 
-    const updateList = [...selectedList, Item];
-    setSelectedList(updateList);
-    localStorage.setItem("selectedItem", JSON.stringify(updateList));
-
-
+    setPatientList({
+      ...patientList,
+       programList
+    })
+    localStorage.setItem("nested", JSON.stringify(programList));
   };
-
-
-
+ 
+  
+   
 
   return (props.trigger) ? (
 
     <div className="popup">
-      <form className="inner-popup" onSubmit={handleCreateSubmit}>
+    
         <FontAwesomeIcon className="close-btn" onClick={() => props.setTrigger(false)} icon={faXmark} />
         {props.children}
         <h3>Add food meal</h3>
+        <form onSubmit={handleCreateSubmit }>
         <div className="box">
 
           <Select onChange={(e) => setSelected(e.target.value)} value={selected}>
@@ -77,9 +84,10 @@ const MealPopup = (props) => {
 
 
         </div>
-        <button className="create-button" type="submit">Create</button>
+        
+        <button className="create-button" type="submit" >Create</button>
 
-      </form>
+        </form>
     </div>
   ) : " "
 }

@@ -9,7 +9,7 @@ const Item = () => {
            
             <p key={`ru+${idx}`}>{e.name}</p>
     
-            {console.log(e.name)}
+        
             </div>
            )
         })}

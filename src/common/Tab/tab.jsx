@@ -1,41 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../../pages/new-diet-program/add-button';
+//import Button from '../../pages/new-diet-program/add-button';
 //import Item from './item';
 import Card from '../../pages/new-diet-program/card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import MealPopup from '../../pages/new-diet-program/popup';
+import userEvent from '@testing-library/user-event';
 
-const Tabs = () => {
+
+
+
+
+
+
+
+const Tabs = (props) => {
+
+ const  {patientList,setPatientList} = props;
+
+    const [trigger, setTrigger] = useState(false)
 
     const [currentTab, setCurrentTab] = useState("");
-   // const [mealList, setMealList] = useState([])
-
-  
+   
+ 
+   
+ 
 
 
     //const addButton = <Button />;
     //const addItem = <Item />;
-    //const R = JSON.parse(localStorage.getItem('selectedItem'));
-
+    //const R = JSON.parse(localStorage.getItem('currentTab'));
+   
   
-
+   
     const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wedenesday", "Theresday", "Friday"]
-    const nestedArray = {
-        name: "",
-        phoneNumber: "",
-        email:" ",
-        city:"",
-        dob:"",
-        id: Math.random(),
-        program: [[{name:"A", image:"data:", amount:12, calories:30}], [{name:"B", image:"data:", amount:12, calories:30}], [{name:"C", image:"data:", amount:12, calories:30}], [{name:"D", image:"data:", amount:12, calories:30}], [{name:"E", image:"data:", amount:12, calories:30}], [], []],
-    }
     
-   const [dayProgram, setDayProgram]= useState({...nestedArray})
-    const index = Number(currentTab);
+   // const [patient,setPatient] = useState({...nestedArray})
+   //const [dayProgram, setDayProgram]= useState({...nestedArray})
+    
   //  setDayProgram(nestedArray.program[index])
     
-    const o = nestedArray.program[index]
-    console.log(dayProgram.program[index])
-    useEffect(()=>{
-		setDayProgram({...nestedArray}) }, []);
+    
+   // console.log(dayProgram.program[index])
+  
   
     
 
@@ -55,18 +62,18 @@ const Tabs = () => {
                     )}
             </div>
             <div className='content'>
-           <div key={Math.random()}><Button key={index}/></div>
+           <div key={Math.random()}>
+           <button ><FontAwesomeIcon icon={faAdd} onClick={() => setTrigger(true)}/></button>
+           <MealPopup trigger={trigger} setTrigger={setTrigger} patientList={patientList} setPatientList={setPatientList} currentTab={currentTab}
+            />
+           </div>
            {   
-                    o.map((tab, idx) => {
-
-                     return (
-                            <div>
-                                <Card key={idx} name={tab.name} image={tab.image} amount={tab.amount} calories={tab.calories} />
-                                
-                            </div>
-
-                        )
-                    })
+                   
+                   /* o.map((tab, idx)=>
+                    {
+                        <Card key={idx} name={tab.name} image={tab.image} amount={tab.amount} calories={tab.calories} />
+                    }
+                    )*/
                 }
 
 

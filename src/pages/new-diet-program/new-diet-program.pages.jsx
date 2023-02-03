@@ -7,6 +7,7 @@ import Select from "../../common/select/select";
 //import Tab from "../../common/Tab/tab";
 //import { tab } from "@testing-library/user-event/dist/tab";
 import Tabs from "../../common/Tab/tab";
+import { useState, useEffect } from "react";
 
 
 
@@ -15,62 +16,153 @@ const cities = [
     'Jerusalem', 'Bethlehem', 'Beit Jala', 'Beit Sahour', 'Hebron', 'Jericho', 'Ramallah',
     'Nablus', 'Tulkarem', 'Jenin', ' Gaza'
 ]
+/*const nestedArray = {
+    name: "",
+    phoneNumber: "",
+    email: " ",
+    city: "",
+    dob: "",
+    id: Math.random(),
+    program: [[{ name: "one", image: "data:", amount: 12, calories: 30 }], [{ name: "two", image: "data:", amount: 12, calories: 30 }], [{ name: "c", image: "data:", amount: 12, calories: 30 }], [{ name: "B", image: "data:", amount: 12, calories: 30 }], [], [], []],
+    // totalCalories: [0,0,0,0,0,0,0]
+}*/
 
+
+/* const addFoodToDay = (food, dayId) =>{
+   const newPrograme = [...user.program];
+     newPrograme[dayId] = [...newPrograme[dayId], food.id]  
+     const newTotal = [...user.totalCalories];
+     newTotal[dayId]+=food.amount*food.calories;
+     setUser({
+         ...user,
+         program: newPrograme,
+         totalCalories: newTotal
+     })
+ }*/
+
+//console.log(R);
 
 const NewDietProgram = () => {
+    const [patientList, setPatientList] = useState([]);
+    
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('nested') || '[]');
+        setPatientList(items)
+    }, []);
+    
+   
+    
+  
+
+
+    const [addFormlist, setAddFormlist] = useState(null);
+
+
+    const handleSaveSubmit = (event) => {
+
+        event.preventDefault();
+
+        const Patient = {
+
+            name: addFormlist.name,
+            phoneNumber: addFormlist.phoneNumber,
+            email: addFormlist.email,
+            city: addFormlist.city,
+            dob: addFormlist.dob,
+            program: [[{}],[{}],[{}],[{}],[{}],[{}],[{}]]
+            // program:  [[{name:"A", image:"data:", amount:12, calories:30}], [{name:"B", image:"data:", amount:12, calories:30}], [{name:"C", image:"data:", amount:12, calories:30}], [{name:"D", image:"data:", amount:12, calories:30}], [{name:"E", image:"data:", amount:12, calories:30}], [], []],
+            // totalCalories: [0,0,0,0,0,0,0]
+
+        };
+    
+       
+       const newPatientList = [...patientList, Patient];
+       setPatientList(newPatientList);
+        localStorage.setItem("nested", JSON.stringify(newPatientList));
+
+        
+        
+
+    };
+
+   
+    
+
+    const handleSaveChange = (event) => {
+
+        event.preventDefault();
+
+        const fieldName = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
+
+        const newFormlist = { ...addFormlist };
+        newFormlist[fieldName] = fieldValue;
+
+        setAddFormlist(newFormlist);
+    };
+
+
     return (
         <div className="container">
             <h2>New Diet Program</h2>
             <div className="patient-information">
 
                 <h3>Patient Information</h3>
-                <div className="box">
-                    <Input
-                        type="text"
-                        name="name"
-                        required="required"
-                        placeholder="Name"
-
-                    />
-                    <Input
-                        type="number"
-                        name="Phone number"
-                        required="required"
-                        placeholder="Phone Number"
-
-                    />
-                    <Input
-                        type="email"
-                        name="email"
-                        required="required"
-                        placeholder="Email"
-
-                    />
+                <form onSubmit={handleSaveSubmit}>
+                    <div className="box">
+                        <Input
+                            type="text"
+                            name="name"
+                            required="required"
+                            placeholder="Name"
+                            onChange={handleSaveChange}
 
 
-                    <Select name="city" placeholder="city" required>
-                        {cities.map(item => {
-                            return <option key={item} value={item}>{item}</option>;
-                        })}
-                    </Select>
+                        />
+                        <Input
+                            type="number"
+                            name="phoneNumber"
+                            required="required"
+                            placeholder="Phone Number"
+                            onChange={handleSaveChange}
 
-                    <Input
-                        type="date"
-                        name="birthDate"
-                        required="required"
-                        placeholder="Date Of Birth"
+                        />
+                        <Input
+                            type="email"
+                            name="email"
+                            required="required"
+                            placeholder="Email"
+                            onChange={handleSaveChange}
 
-                    />
+                        />
 
-                </div>
-                <button className="save-btn" type="submit">Save</button>
+
+                        <Select name="city" placeholder="city" onChange={handleSaveChange} required>
+                            {cities.map(item => {
+                                return <option key={item} value={item}>{item}</option>;
+                            })}
+                        </Select>
+
+                        <Input
+                            type="date"
+                            name="dob"
+                            required="required"
+                            placeholder="Date Of Birth"
+                            onChange={handleSaveChange}
+
+                        />
+
+                    </div>
+                    <button className="save-btn" type="submit">Save</button>
+                </form>
             </div>
             <div className="weekly-programme">
                 <h3 >Weekly programme</h3>
 
-           <Tabs/>
-           
-           
+                <Tabs patientList={patientList} setPatientList={setPatientList} />
+
+
                 <div>
                     Total Calories (day):
                 </div>
