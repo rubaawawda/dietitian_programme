@@ -56,7 +56,7 @@ const NewDietProgram = () => {
   
 
 
-    const [addFormlist, setAddFormlist] = useState(null);
+    // const [addFormlist, setAddFormlist] = useState(null);
 
 
     const handleSaveSubmit = (event) => {
@@ -65,42 +65,31 @@ const NewDietProgram = () => {
 
         const Patient = {
 
-            name: addFormlist.name,
-            phoneNumber: addFormlist.phoneNumber,
-            email: addFormlist.email,
-            city: addFormlist.city,
-            dob: addFormlist.dob,
-            program: [[{}],[{}],[{}],[{}],[{}],[{}],[{}]]
+            name: event.target.name.value,
+            phoneNumber: event.target.phoneNumber.value,
+            email: event.target.email.value,
+            city: event.target.city.value,
+            dob: event.target.dob.value,
+            program: [[],[],[],[],[],[],[]],
+            totalCalories: [0,0,0,0,0,0,0]
             // program:  [[{name:"A", image:"data:", amount:12, calories:30}], [{name:"B", image:"data:", amount:12, calories:30}], [{name:"C", image:"data:", amount:12, calories:30}], [{name:"D", image:"data:", amount:12, calories:30}], [{name:"E", image:"data:", amount:12, calories:30}], [], []],
             // totalCalories: [0,0,0,0,0,0,0]
 
         };
-    
-       
        const newPatientList = [...patientList, Patient];
        setPatientList(newPatientList);
         localStorage.setItem("nested", JSON.stringify(newPatientList));
-
-        
-        
-
     };
 
-   
-    
-
-    const handleSaveChange = (event) => {
-
-        event.preventDefault();
-
-        const fieldName = event.target.getAttribute("name");
-        const fieldValue = event.target.value;
-
-        const newFormlist = { ...addFormlist };
-        newFormlist[fieldName] = fieldValue;
-
-        setAddFormlist(newFormlist);
-    };
+    // const handleSaveChange = (event) => {
+    //     event.preventDefault();
+    //     const fieldName = event.target.getAttribute("name");
+    //     const fieldValue = event.target.value;
+    //     const newFormlist = { ...addFormlist };
+    //     newFormlist[fieldName] = fieldValue;
+    //     setAddFormlist(newFormlist);
+    //     console.log('Form list : ', newFormlist);
+    // };
 
 
     return (
@@ -116,8 +105,6 @@ const NewDietProgram = () => {
                             name="name"
                             required="required"
                             placeholder="Name"
-                            onChange={handleSaveChange}
-
 
                         />
                         <Input
@@ -125,20 +112,16 @@ const NewDietProgram = () => {
                             name="phoneNumber"
                             required="required"
                             placeholder="Phone Number"
-                            onChange={handleSaveChange}
-
                         />
                         <Input
                             type="email"
                             name="email"
                             required="required"
                             placeholder="Email"
-                            onChange={handleSaveChange}
-
                         />
 
 
-                        <Select name="city" placeholder="city" onChange={handleSaveChange} required>
+                        <Select name="city" placeholder="city" required>
                             {cities.map(item => {
                                 return <option key={item} value={item}>{item}</option>;
                             })}
@@ -149,7 +132,6 @@ const NewDietProgram = () => {
                             name="dob"
                             required="required"
                             placeholder="Date Of Birth"
-                            onChange={handleSaveChange}
 
                         />
 
