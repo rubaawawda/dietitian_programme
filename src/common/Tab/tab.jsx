@@ -1,56 +1,16 @@
-import React, { useState,useEffect} from 'react';
-//import Button from '../../pages/new-diet-program/add-button';
-//import Item from './item';
-//import Card from '../../pages/new-diet-program/card';
+import React, { useState} from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import MealPopup from '../../pages/new-diet-program/popup';
-//import { tab } from '@testing-library/user-event/dist/tab';
-// import userEvent from '@testing-library/user-event';
-
-
-
-
-
-
-
 
 const Tabs = (props) => {
-
-    // {patientList,setPatientList}
-//  const  {patientList,setPatientList} = props;
-
-    const [trigger, setTrigger] = useState(false)
-
-    const [currentTab, setCurrentTab] = useState(0);
-  
-
-
-
-    //const addButton = <Button />;
-    //const addItem = <Item />;
-    //const R = JSON.parse(localStorage.getItem('currentTab'));
-   
-  
-
-    const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wedenesday", "Theresday", "Friday"]
-    
-   // const [patient,setPatient] = useState({...nestedArray})
-   //const [dayProgram, setDayProgram]= useState({...nestedArray})
-    
-  //  setDayProgram(nestedArray.program[index])
-    
-    
-   // console.log(dayProgram.program[index])
-  
-   
-  
-
- 
-
-
+ const [trigger, setTrigger] = useState(false)
+ const [currentTab, setCurrentTab] = useState(0);
+ const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wedenesday", "Theresday", "Friday"]
     
 
+    
     return (
         <div className='container'>
             <div className='tabs'>
@@ -77,8 +37,7 @@ const Tabs = (props) => {
         props.patientList.length&& props.patientList.map(e=>{ 
                     return(
                        e.program[currentTab].map((tab, idx)=>{
-                      // <Card key={idx} name={tab.name} image={tab.image} amount={tab.amount} calories={tab.calories}  />
-                      // props.patientList.length?    console.log("true"):console.log("false")
+                   
                       return (
                         <div className="card">
                         <img src={tab.image} alt="img"/>

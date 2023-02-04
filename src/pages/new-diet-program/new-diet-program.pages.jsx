@@ -2,10 +2,6 @@ import React from "react";
 import './new-diet-program.css';
 import Input from "../../common/input/input.common";
 import Select from "../../common/select/select";
-//import Tabs from "../../common/tabs/tabs.common";
-//import Button from "./add-button";
-//import Tab from "../../common/Tab/tab";
-//import { tab } from "@testing-library/user-event/dist/tab";
 import Tabs from "../../common/Tab/tab";
 import { useState, useEffect } from "react";
 
@@ -16,31 +12,6 @@ const cities = [
     'Jerusalem', 'Bethlehem', 'Beit Jala', 'Beit Sahour', 'Hebron', 'Jericho', 'Ramallah',
     'Nablus', 'Tulkarem', 'Jenin', ' Gaza'
 ]
-/*const nestedArray = {
-    name: "",
-    phoneNumber: "",
-    email: " ",
-    city: "",
-    dob: "",
-    id: Math.random(),
-    program: [[{ name: "one", image: "data:", amount: 12, calories: 30 }], [{ name: "two", image: "data:", amount: 12, calories: 30 }], [{ name: "c", image: "data:", amount: 12, calories: 30 }], [{ name: "B", image: "data:", amount: 12, calories: 30 }], [], [], []],
-    // totalCalories: [0,0,0,0,0,0,0]
-}*/
-
-
-/* const addFoodToDay = (food, dayId) =>{
-   const newPrograme = [...user.program];
-     newPrograme[dayId] = [...newPrograme[dayId], food.id]  
-     const newTotal = [...user.totalCalories];
-     newTotal[dayId]+=food.amount*food.calories;
-     setUser({
-         ...user,
-         program: newPrograme,
-         totalCalories: newTotal
-     })
- }*/
-
-//console.log(R);
 
 const NewDietProgram = () => {
     const [patientList, setPatientList] = useState([]);
@@ -52,13 +23,6 @@ const NewDietProgram = () => {
     }, []);
     
    
-    
-  
-
-
-    // const [addFormlist, setAddFormlist] = useState(null);
-
-
     const handleSaveSubmit = (event) => {
 
         event.preventDefault();
@@ -70,26 +34,16 @@ const NewDietProgram = () => {
             email: event.target.email.value,
             city: event.target.city.value,
             dob: event.target.dob.value,
+            id: Math.random(),
             program: [[],[],[],[],[],[],[]],
             totalCalories: [0,0,0,0,0,0,0]
-            // program:  [[{name:"A", image:"data:", amount:12, calories:30}], [{name:"B", image:"data:", amount:12, calories:30}], [{name:"C", image:"data:", amount:12, calories:30}], [{name:"D", image:"data:", amount:12, calories:30}], [{name:"E", image:"data:", amount:12, calories:30}], [], []],
-            // totalCalories: [0,0,0,0,0,0,0]
+            
 
         };
        const newPatientList = [...patientList, Patient];
        setPatientList(newPatientList);
         localStorage.setItem("nested", JSON.stringify(newPatientList));
     };
-
-    // const handleSaveChange = (event) => {
-    //     event.preventDefault();
-    //     const fieldName = event.target.getAttribute("name");
-    //     const fieldValue = event.target.value;
-    //     const newFormlist = { ...addFormlist };
-    //     newFormlist[fieldName] = fieldValue;
-    //     setAddFormlist(newFormlist);
-    //     console.log('Form list : ', newFormlist);
-    // };
 
 
     return (
