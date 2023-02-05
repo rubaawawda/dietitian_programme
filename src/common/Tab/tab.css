@@ -18,29 +18,57 @@
     align-items: center;
     width: 624px;
     margin-left: -6px;
+    font-family: cursive;
+    font-size: 20px;
   }
   
   .TabView .tabs .tab {
-    padding: 5px 1em;
-    border: 1px solid gray;
+    padding: 8px 1em;
+  
+    
   }
   
   .TabView .tabs .active-tab {
-    padding: 5px 1em;
-    border-left: 1px solid #61741f;
-    border-top: 1px solid #61741f;
-    border-right: 1px solid #61741f;
-    background-color: #98b33b;
+    padding: 8px 1em;
+    border: 1px solid #d1dab6;
+    background-color: #ced8ab;
   }
   
   .content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+   flex-direction: row-reverse;
+   justify-content: space-between;
+    
     padding: 1em;
-    background-color: #98b33b;
+    background-color: #eaf5c5;
     width: 624px;
     height: 240px;
     margin-left: -22px;
+}
+.Card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 141px;
+  display: flex;
+ justify-content: space-between;
+ margin-top: 20px;
+ padding: 30px;
+  
+
+}
+.Card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.Card-container{
+  width: 100%;
+  
+  overflow: hidden;
+}
+
+
+.add-meal{
+  color: #ffffff;
+  border: 1px solid #d5e0ae;
+  background-color: #98b33b;
+  font-family: cursive;
 }

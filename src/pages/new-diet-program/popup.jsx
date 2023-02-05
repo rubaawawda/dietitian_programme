@@ -15,6 +15,7 @@ const MealPopup = (props) => {
   const value = selected && items[selected];
   const [programList, setProgramList] = useState([...patientList]);
   const [totalCaloriesList, setTotalCaloriesList] = useState([...patientList]);
+  const {numberOfMeals, setNumberOfMeals} = props
 
   
 
@@ -34,7 +35,7 @@ const MealPopup = (props) => {
    currentProgramList[patientList.length -1 || 0].program[currentTab] = [...currentProgramList[patientList.length -1 || 0].program[currentTab], Item]
    currentCaloriesList[patientList.length -1 || 0].totalCalories[currentTab]+= Item.calories
  
-   
+   setNumberOfMeals(numberOfMeals+1);
    
 
     setProgramList(currentProgramList);
@@ -49,11 +50,11 @@ const MealPopup = (props) => {
   return (props.trigger) ? (
 
     <div className="popup">
-    
+    <form onSubmit={handleCreateSubmit } className="inner-popup">
         <FontAwesomeIcon className="close-btn" onClick={() => props.setTrigger(false)} icon={faXmark} />
         {props.children}
         <h3>Add food meal</h3>
-        <form onSubmit={handleCreateSubmit }>
+        
         <div className="box">
 
           <Select name='selected-food' onChange={(e) => setSelected(e.target.value)} value={selected}>

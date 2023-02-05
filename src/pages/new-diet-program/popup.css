@@ -13,7 +13,7 @@
 .inner-popup{
     position: relative;
     padding: 32px;
-    width: 100%;
+    width: 250px;
     max-width: 640px;
     background-color: #eaf5c5;
 }
@@ -56,7 +56,7 @@ h3{
     display: flex;
     justify-content: flex-end;
     margin-top: 30px;
-    margin-left: 245px;
+    margin-left: 150px;
     font-size: 20px;
     color: #ffffff;
     border: 1px solid #d5e0ae;

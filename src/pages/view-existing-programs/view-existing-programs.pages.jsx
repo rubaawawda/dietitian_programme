@@ -3,10 +3,8 @@ import './view-existing-programs.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
-//import { useEffect } from "react";
-import { jsPDF } from "jspdf";
-import Input from "../../common/input/input.common";
-
+import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
+import { useRef } from 'react';
 const initialItems = [];
 
 const ViewExistingPrograms = () => {
@@ -17,17 +15,16 @@ const ViewExistingPrograms = () => {
   
 
     
-
-
-const generatePDF = () => {
-
-    const report = new jsPDF('portrait','pt','a4','false');
-    report.html(document.querySelector('#ruba')).then(() => {
-        report.save('report.pdf');
-    })
-   
-
-}
+        const pdfExportComponent = useRef(null);
+        const contentArea = useRef(null);
+        
+        const handleExportWithComponent = (event) => {
+          pdfExportComponent.current.save();
+        }
+      
+        
+       
+  
 //<div id="report">hgjgugu</div>
 
     const handleDeleteClick = (itemId) => {
@@ -56,18 +53,11 @@ const generatePDF = () => {
         return match;
       });
     
-
-
     return (
         <div >
             <h2 >Patients Program Table</h2>
  
-            <Input
-        type="search"
-        value={searchTerms}
-        onChange={e => setSearchTerms(e.target.value)}
-        placeholder="Search"
-      />
+     
 {
       filteredItems .map((item, index) => {
         
@@ -81,7 +71,7 @@ const generatePDF = () => {
                                 }
                                 <td className="col">{sum}</td>
                                 <td className="col">
-                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={generatePDF}/></span>
+                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={handleExportWithComponent}/></span>
                                     <span><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteClick(item.id)} /></span>
                                 </td>
 
@@ -119,7 +109,7 @@ const generatePDF = () => {
                                 }
                                 <td className="col">{sum}</td>
                                 <td className="col">
-                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={generatePDF}/></span>
+                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={handleExportWithComponent}/></span>
                                     <span><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteClick(e.id)} /></span>
                                 </td>
 
@@ -138,8 +128,13 @@ const generatePDF = () => {
 
                 </tbody>
             </table>
-
-
+        
+            <PDFExport ref={pdfExportComponent} paperSize="A4">
+      <div ref={contentArea}>
+        <h1>ughug</h1>
+        
+      </div>
+    </PDFExport>
 
         </div>
     );

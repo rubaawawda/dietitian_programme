@@ -99,14 +99,8 @@ const NewDietProgram = () => {
                 <Tabs patientList={patientList} setPatientList={setPatientList} />
 
 
-                <div>
-                    Total Calories (day):
-                </div>
-                <div>
-                    Number Of Meals:
-                </div>
             </div>
-            <button >Submit</button>
+         
         </div>
     );
 }
