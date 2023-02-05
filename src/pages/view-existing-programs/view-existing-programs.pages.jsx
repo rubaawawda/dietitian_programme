@@ -4,35 +4,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 //import { useEffect } from "react";
+import { jsPDF } from "jspdf";
+import Input from "../../common/input/input.common";
 
-const List = [
-    { name: "Ruba", calories: "3878" },
-    { name: "Batool", calories: "256" },
-    { name: "Amal", calories: "356" },
-]
+const initialItems = [];
 
 const ViewExistingPrograms = () => {
     const patients = JSON.parse(localStorage.getItem('nested'));
+    const [list, setList] = useState([]);
+    const [menuItems, setMenuItems] = useState(initialItems);
+    const [searchTerms, setSearchTerms] = useState('');
+  
 
-    const [list, setList] = useState(List);
-
-    {
-        patients.map(e => {
-            let sum = 0;
-            console.log(e.name)
-            {
-                e.totalCalories.map(e => {
-
-                    sum += e
-                })
-                console.log(sum)
-            }
-        })
-    }
+    
 
 
+const generatePDF = () => {
 
+    const report = new jsPDF('portrait','pt','a4','false');
+    report.html(document.querySelector('#ruba')).then(() => {
+        report.save('report.pdf');
+    })
+   
 
+}
+//<div id="report">hgjgugu</div>
 
     const handleDeleteClick = (itemId) => {
         const newitems = [...patients];
@@ -46,11 +42,57 @@ const ViewExistingPrograms = () => {
           localStorage.setItem("nested", JSON.stringify(newitems));
     };
 
+    const filteredItems = menuItems.filter(item => {
+        /**
+         * Check if search terms are somewhere inside given string.
+         * @param {string} str 
+         */
+        const doesItMatch = str => str.toLowerCase().includes(searchTerms.toLowerCase().trim());
+    
+        const match = (
+          doesItMatch(item.name) 
+        );
+    
+        return match;
+      });
+    
+
 
     return (
         <div >
-            <h2>Patients Program Table</h2>
+            <h2 >Patients Program Table</h2>
+ 
+            <Input
+        type="search"
+        value={searchTerms}
+        onChange={e => setSearchTerms(e.target.value)}
+        placeholder="Search"
+      />
+{
+      filteredItems .map((item, index) => {
+        
+                            let sum = 0;
+                            return(
+                            <Fragment >{
+                                <tr className="table-row" key={`key+${index}`} id="ruba">
+                                <td className="col">{item.name}</td>
+                                {
+                                    item.totalCalories.map(item => { sum += item })
+                                }
+                                <td className="col">{sum}</td>
+                                <td className="col">
+                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={generatePDF}/></span>
+                                    <span><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteClick(item.id)} /></span>
+                                </td>
 
+                            </tr>
+                            }</Fragment>
+                           
+
+                         ) })
+      
+
+}
             <table className="table">
                 <tbody className="table-body">
                     <tr className="table-header">
@@ -69,15 +111,15 @@ const ViewExistingPrograms = () => {
                         patients.map((e, index) => {
                             let sum = 0;
                             return(
-                            <Fragment>{
-                                <tr className="table-row" key={`key+${index}`}>
+                            <Fragment >{
+                                <tr className="table-row" key={`key+${index}`} id="ruba">
                                 <td className="col">{e.name}</td>
                                 {
                                     e.totalCalories.map(e => { sum += e })
                                 }
                                 <td className="col">{sum}</td>
                                 <td className="col">
-                                    <span><FontAwesomeIcon icon={faFilePdf} /></span>
+                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={generatePDF}/></span>
                                     <span><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteClick(e.id)} /></span>
                                 </td>
 

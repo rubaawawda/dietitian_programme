@@ -6,6 +6,7 @@ import NewDietProgram from './pages/new-diet-program/new-diet-program.pages';
 import ViewExistingPrograms from './pages/view-existing-programs/view-existing-programs.pages';
 import Header from './components/header/header.components';
 import Home from './pages/home/home.pages';
+//import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
 function App() {
   return (
     <BrowserRouter>

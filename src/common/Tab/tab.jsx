@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-
+//import './tab.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import MealPopup from '../../pages/new-diet-program/popup';
@@ -12,13 +12,13 @@ const Tabs = (props) => {
 
     
     return (
-        <div className='container'>
+        <div className='TabView'>
             <div className='tabs'>
                 {
                     days.map((tab, i) => {
                         return (
 
-                            <button key={i} disabled={currentTab === `${i}`} onClick={() => { setCurrentTab(i) }}>{tab}</button>
+                            <button key={i} disabled={currentTab === `${i}`} onClick={() => { setCurrentTab(i) }} className={currentTab === `${i}` ?'tab' :'active-tab' }>{tab}</button>
 
 
                         )
