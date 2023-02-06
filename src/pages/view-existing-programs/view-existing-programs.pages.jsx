@@ -3,29 +3,60 @@ import './view-existing-programs.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
-import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
-import { useRef } from 'react';
-const initialItems = [];
-
-const ViewExistingPrograms = () => {
+import Input from "../../common/input/input.common";
+import jsPDF from 'jspdf'
+const ViewExistingPrograms = (props) => {
     const patients = JSON.parse(localStorage.getItem('nested'));
     const [list, setList] = useState([]);
-    const [menuItems, setMenuItems] = useState(initialItems);
-    const [searchTerms, setSearchTerms] = useState('');
-  
+    const [search, setSearch] = React.useState('');
 
-    
-        const pdfExportComponent = useRef(null);
-        const contentArea = useRef(null);
-        
-        const handleExportWithComponent = (event) => {
-          pdfExportComponent.current.save();
-        }
-      
-        
-       
-  
-//<div id="report">hgjgugu</div>
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+    };
+
+
+    const generatePDF = () => {
+
+
+        var doc = new jsPDF('p', 'pt');
+
+        doc.text(40, 40, "Name: ")
+        doc.text(40, 60, "Emaile: ")
+        doc.text(40, 80, "City: ")
+        doc.text(40, 100, "Phone Number: ")
+        patients.map(e => {
+            doc.text(100, 40, e.name)
+            doc.text(100, 60, e.email)
+            doc.text(80, 80, e.city)
+            doc.text(160, 100, String(e.phoneNumber))
+
+        })
+        doc.text(40, 150, "weekly programe")
+        doc.text(40, 190, "Meal Name: ")
+        doc.text(40, 210, "Amount: ")
+        doc.text(40, 230, "Calories: ")
+        patients.map(e => {
+            e.program.map(day => {
+                day.map(e => {
+                    doc.text(128, 190, e.name)
+                    doc.text(105, 210, String(e.amount))
+                    doc.text(110, 230, String(e.calories))
+
+                })
+            })
+        })
+
+
+
+
+        doc.save('demo.pdf')
+    }
+
+
+
+
+
+
 
     const handleDeleteClick = (itemId) => {
         const newitems = [...patients];
@@ -36,53 +67,28 @@ const ViewExistingPrograms = () => {
 
         setList(newitems);
 
-          localStorage.setItem("nested", JSON.stringify(newitems));
+        localStorage.setItem("nested", JSON.stringify(newitems));
     };
 
-    const filteredItems = menuItems.filter(item => {
-        /**
-         * Check if search terms are somewhere inside given string.
-         * @param {string} str 
-         */
-        const doesItMatch = str => str.toLowerCase().includes(searchTerms.toLowerCase().trim());
-    
-        const match = (
-          doesItMatch(item.name) 
+
+
+
+    const data =
+        patients.filter((item) =>
+            item.name.toLowerCase().includes(search.toLowerCase())
         );
-    
-        return match;
-      });
-    
+
     return (
         <div >
             <h2 >Patients Program Table</h2>
- 
-     
-{
-      filteredItems .map((item, index) => {
-        
-                            let sum = 0;
-                            return(
-                            <Fragment >{
-                                <tr className="table-row" key={`key+${index}`} id="ruba">
-                                <td className="col">{item.name}</td>
-                                {
-                                    item.totalCalories.map(item => { sum += item })
-                                }
-                                <td className="col">{sum}</td>
-                                <td className="col">
-                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={handleExportWithComponent}/></span>
-                                    <span><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteClick(item.id)} /></span>
-                                </td>
-
-                            </tr>
-                            }</Fragment>
-                           
-
-                         ) })
-      
-
-}
+            <div style={{ paddingLeft: 80 }}>
+                <Input
+                    type="search"
+                    label="Search for Patient"
+                    onChange={handleSearch}
+                    placeholder="Search"
+                />
+            </div>
             <table className="table">
                 <tbody className="table-body">
                     <tr className="table-header">
@@ -92,32 +98,33 @@ const ViewExistingPrograms = () => {
                     </tr>
 
 
-                    
 
-                      
+
+
 
 
                     {
-                        patients.map((e, index) => {
+                        data.map((e, index) => {
                             let sum = 0;
-                            return(
-                            <Fragment >{
-                                <tr className="table-row" key={`key+${index}`} id="ruba">
-                                <td className="col">{e.name}</td>
-                                {
-                                    e.totalCalories.map(e => { sum += e })
-                                }
-                                <td className="col">{sum}</td>
-                                <td className="col">
-                                    <span><FontAwesomeIcon icon={faFilePdf} onClick={handleExportWithComponent}/></span>
-                                    <span><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteClick(e.id)} /></span>
-                                </td>
+                            return (
+                                <Fragment >{
+                                    <tr className="table-row" key={`key+${index}`} id="ruba">
+                                        <td className="col">{e.name}</td>
+                                        {
+                                            e.totalCalories.map(m => { sum += m })
+                                        }
+                                        <td className="col">{sum}</td>
+                                        <td className="col">
+                                            <span><FontAwesomeIcon icon={faFilePdf} onClick={generatePDF} /></span>
+                                            <span><FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteClick} /></span>
+                                        </td>
 
-                            </tr>
-                            }</Fragment>
-                           
+                                    </tr>
+                                }</Fragment>
 
-                         ) })
+
+                            )
+                        })
                     }
 
 
@@ -128,13 +135,7 @@ const ViewExistingPrograms = () => {
 
                 </tbody>
             </table>
-        
-            <PDFExport ref={pdfExportComponent} paperSize="A4">
-      <div ref={contentArea}>
-        <h1>ughug</h1>
-        
-      </div>
-    </PDFExport>
+
 
         </div>
     );

@@ -6,6 +6,8 @@ import { Link} from 'react-router-dom';
 
 
 const Header = () =>{
+
+   
     return(
         <header className="websiteHeader">
         <div className="left">
@@ -22,6 +24,7 @@ const Header = () =>{
               <Link to="/NewDietProgram">New Diet Program</Link>
               <Link to="/ViewExistingPrograms">View Existing Programs</Link>
               <Link to="/Home">Home</Link>
+            
         </nav>
         </div>
         </header>
